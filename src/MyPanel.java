@@ -1,17 +1,20 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class MyPanel extends JFrame {
-
+public class MyPanel extends JPanel {
     private MyObjectComponent objectComponent;
+    private MyJFrame parentFrame;
 
-    public MyPanel() {
+    public MyPanel(MyJFrame parentFrame) {
+        this.parentFrame = parentFrame;
         objectComponent = new MyObjectComponent();
+        objectComponent.setPreferredSize(new Dimension(500, 600));
         add(objectComponent);
 
-        AnimatedShape animatedCircle = new AnimatedCircle(objectComponent, 40);
-        add(animatedCircle);
+        DVDAnimation DVDAnimation = new DVDAnimation(objectComponent, parentFrame);
+        add(DVDAnimation);
 
         objectComponent.addKeyListener(new KeyListener() {
             @Override
@@ -29,10 +32,6 @@ public class MyPanel extends JFrame {
         objectComponent.setFocusable(true);
         objectComponent.requestFocus();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        setResizable(false);
         setVisible(true);
     }
 
@@ -43,7 +42,7 @@ public class MyPanel extends JFrame {
         switch (key) {
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                if (objectComponent.getX() + step > 240)
+                if (objectComponent.getX() + objectComponent.getMySize() + step > parentFrame.width)
                     break;
                 objectComponent.moveObject(step, 0);
                 break;
@@ -55,7 +54,7 @@ public class MyPanel extends JFrame {
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                if (objectComponent.getY() + step > 180)
+                if (objectComponent.getY() + objectComponent.getMySize() + step > parentFrame.height)
                     break;
                 objectComponent.moveObject(0, step);
                 break;
@@ -68,10 +67,7 @@ public class MyPanel extends JFrame {
         }
 
         System.out.println("Current x: " + objectComponent.getX() + " Current y: " + objectComponent.getY());
+        System.out.println("Current x: " + parentFrame.width + " Current y: " + parentFrame.height);
         repaint();
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MyPanel::new);
     }
 }

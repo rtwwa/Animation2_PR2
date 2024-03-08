@@ -1,22 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 
-public abstract class AnimatedShape extends JPanel {
+public abstract class AbstractMainAnimation extends JPanel {
 
-    private static final int INACTIVITY_DELAY = 5000; // 5 секунд бездействия
+    private static final int INACTIVITY_DELAY = 1000;
     private Timer animationTimer;
     private long lastActivityTime;
 
     protected MyObjectComponent objectComponent;
 
-    public AnimatedShape(MyObjectComponent objectComponent) {
+    public AbstractMainAnimation(MyObjectComponent objectComponent) {
         this.objectComponent = objectComponent;
 
-        // Начальное время последней активности
         lastActivityTime = System.currentTimeMillis();
 
-        // Создаем таймер анимации, но не запускаем его
         animationTimer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -25,18 +24,16 @@ public abstract class AnimatedShape extends JPanel {
             }
         });
 
-        // Создаем таймер для проверки бездействия
-        Timer inactivityTimer = new Timer(1000, new ActionListener() {
+        Timer inactivityTimer = new Timer(200, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 checkInactivity();
             }
         });
 
-        // Запускаем таймер проверки бездействия
         inactivityTimer.start();
 
-        // Добавляем слушатель мыши для отслеживания активности пользователя
+        // add listeners to stop animation if user is active
         objectComponent.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -54,34 +51,36 @@ public abstract class AnimatedShape extends JPanel {
                 }
             }
         });
-    }
 
+        objectComponent.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                lastActivityTime = System.currentTimeMillis();
+                if (animationTimer.isRunning()) {
+                    stopAnimation();
+                }
+            }
+        });
+    }
 
     protected abstract void animate();
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-    }
 
     private void checkInactivity() {
         long currentTime = System.currentTimeMillis();
         long elapsedTime = currentTime - lastActivityTime;
 
         if (elapsedTime >= INACTIVITY_DELAY) {
-            // Выполнить анимацию после задержки бездействия
             startAnimation();
         }
     }
 
     private void startAnimation() {
-        System.out.println("Starting animation after inactivity!");
+        System.out.println("Play animation..");
         animate();
     }
 
     private void stopAnimation() {
-        System.out.println("Stopping animation due to user activity!");
-        // Останавливаем таймер анимации
+        System.out.println("Stop animation...");
         animationTimer.stop();
     }
 }
