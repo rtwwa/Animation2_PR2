@@ -1,12 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class myJFrame extends JFrame {
-    private static final int MAX_WIDTH = 500;
+public class MyJFrame extends JFrame {
+    private static final int MAX_WIDTH = 600;
     private static final int MAX_HEIGHT = 500;
 
-    myPanel np = new myPanel();
-    public myJFrame() {
+    MyPanel np = new MyPanel();
+    public MyJFrame() {
         super("Практическая работа");
         initComponents();
     }
@@ -16,8 +16,10 @@ public class myJFrame extends JFrame {
         setSize(MAX_WIDTH,MAX_HEIGHT);
 
         np.setSize(MAX_WIDTH,MAX_HEIGHT);
+        np.setBackground(Color.red);
         add(np);
 
+        setResizable(false);
         setVisible(true);
     }
 }
