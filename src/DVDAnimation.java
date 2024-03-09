@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 
 public class DVDAnimation extends AbstractMainAnimation {
@@ -23,11 +22,8 @@ public class DVDAnimation extends AbstractMainAnimation {
             directionX = true;
         if (objectComponent.getY() - step < 0 && directionY)
             directionY = false;
-        if (objectComponent.getY() + objectComponent.getMySize() + step > myPanel.height && !directionY) {
+        if (objectComponent.getY() + objectComponent.getMySize() + step > myPanel.height && !directionY)
             directionY = true;
-            System.out.println("Smena" + getX() + " " + getY());
-            System.out.println();
-        }
 
         objectComponent.moveObject(directionX ? -step : step, directionY ? -step : step);
         myPanel.repaint();

@@ -1,7 +1,5 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 
 public abstract class AbstractMainAnimation extends JComponent {
 

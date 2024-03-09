@@ -1,13 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 
 public class MyObjectComponent extends JComponent {
 
     private int x = 0;
     private int y = 0;
-    private int mySize = 100;
+    private final int mySize = 100;
 
     public MyObjectComponent() {
         setPreferredSize(new Dimension(500, 600));
