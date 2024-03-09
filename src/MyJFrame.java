@@ -5,9 +5,7 @@ import java.awt.event.ComponentEvent;
 
 public class MyJFrame extends JFrame {
 
-    public int width;
-    public int height;
-    MyPanel myPanel = new MyPanel(this);
+    MyPanel myPanel = new MyPanel();
 
     public MyJFrame() {
         super("Практическая работа");
@@ -24,22 +22,7 @@ public class MyJFrame extends JFrame {
         add(myPanel);
 
         setResizable(false);
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                updateSizes();
-            }
-        });
-
         setVisible(true);
-        updateSizes();
-    }
-
-    private void updateSizes() {
-        Dimension size = myPanel.getSize();
-        width = size.width;
-        height = size.height;
-
-        System.out.println("Текущие размеры панели: " + width + " " + height);
+        myPanel.updateSizes();
     }
 }

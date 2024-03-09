@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 
-public abstract class AbstractMainAnimation extends JPanel {
+public abstract class AbstractMainAnimation extends JComponent {
 
     private static final int INACTIVITY_DELAY = 1000;
     private Timer animationTimer;
