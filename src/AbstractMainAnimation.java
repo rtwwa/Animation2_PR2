@@ -14,7 +14,7 @@ public abstract class AbstractMainAnimation extends JComponent {
 
         lastActivityTime = System.currentTimeMillis();
 
-        animationTimer = new Timer(50, new ActionListener() {
+        animationTimer = new Timer(75, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 animate();
@@ -22,7 +22,7 @@ public abstract class AbstractMainAnimation extends JComponent {
             }
         });
 
-        Timer inactivityTimer = new Timer(200, new ActionListener() {
+        Timer inactivityTimer = new Timer(75, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 checkInactivity();
